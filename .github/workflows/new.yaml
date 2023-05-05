@@ -1,0 +1,32 @@
+# mlopstask_h.yaml
+
+# Name of the workflow
+name: mlopstask_h_workflow
+
+# Conda environment file
+env_file: environment.yaml
+
+# Workflow steps
+steps:
+  # Step 1: Download the dataset
+  - name: download_dataset
+    uses: actions/download-artifact@v2
+    with:
+      name: dataset
+      path: data/
+
+  # Step 2: Preprocess the data
+  - name: preprocess_data
+    run: python preprocess.py
+
+  # Step 3: Train the model
+  - name: train_model
+    run: python train.py
+
+  # Step 4: Evaluate the model
+  - name: evaluate_model
+    run: python evaluate.py
+
+  # Step 5: Deploy the model
+  - name: deploy_model
+    run: python deploy.py
